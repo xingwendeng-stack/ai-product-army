@@ -207,22 +207,33 @@ ul { list-style: none; }
 }
 
 .lang-switch {
-    background: none;
+    background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.6);
-    padding: 4px 10px;
+    color: rgba(255,255,255,0.7);
+    padding: 4px 8px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 0.78rem;
     transition: all 0.2s;
     font-family: inherit;
-    white-space: nowrap;
+    outline: none;
     flex-shrink: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%23a0a0c0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 6px center;
+    padding-right: 20px;
 }
 .lang-switch:hover {
     border-color: rgba(99,102,241,0.5);
     color: #fff;
-    background: rgba(99,102,241,0.1);
+    background-color: rgba(99,102,241,0.1);
+}
+.lang-switch option {
+    background: #1a1a3e;
+    color: #f0f0ff;
 }
 
 .hamburger {

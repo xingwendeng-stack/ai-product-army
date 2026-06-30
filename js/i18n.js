@@ -10,6 +10,14 @@ window.I18n = (() => {
     const STORAGE_KEY = 'ai_legion_lang';
     const LANG_ATTR = 'data-i18n';
 
+    // Available languages — add new ones here
+    const LANG_NAMES = {
+        zh: '中文',
+        en: 'English',
+        // ja: '日本語',  // Uncomment when ja dictionary is added
+        // ko: '한국어',   // Uncomment when ko dictionary is added
+    };
+
     // ===== Translation Dictionary =====
     const LANG = {
         zh: {
@@ -561,9 +569,13 @@ window.I18n = (() => {
             el.setAttribute('content', t(key));
         });
 
-        // 5. Update lang switch button text
+        // 5. Update lang switch elements
         document.querySelectorAll('[data-i18n-toggle]').forEach(el => {
-            el.textContent = t('nav.lang');
+            if (el.tagName === 'SELECT') {
+                el.value = currentLang;
+            } else {
+                el.textContent = LANG_NAMES[currentLang === 'zh' ? 'en' : 'zh'] || 'EN';
+            }
         });
 
         // Dispatch event for any reactive components
@@ -586,12 +598,18 @@ window.I18n = (() => {
         document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
         document.documentElement.className = 'lang-' + currentLang;
 
-        // Bind lang toggle buttons
-        document.querySelectorAll('[data-i18n-toggle]').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                toggleLang();
-            });
+        // Bind lang toggle elements
+        document.querySelectorAll('[data-i18n-toggle]').forEach(el => {
+            if (el.tagName === 'SELECT') {
+                el.addEventListener('change', (e) => {
+                    setLang(e.target.value);
+                });
+            } else {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleLang();
+                });
+            }
         });
 
         // Initial render
