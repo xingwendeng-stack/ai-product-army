@@ -516,6 +516,7 @@ window.I18n = (() => {
             localStorage.setItem(STORAGE_KEY, lang);
         } catch (_) { /* ignore */ }
         document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        document.documentElement.className = 'lang-' + lang;
         render();
     }
 
@@ -583,6 +584,7 @@ window.I18n = (() => {
             currentLang = saved;
         }
         document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+        document.documentElement.className = 'lang-' + currentLang;
 
         // Bind lang toggle buttons
         document.querySelectorAll('[data-i18n-toggle]').forEach(btn => {
