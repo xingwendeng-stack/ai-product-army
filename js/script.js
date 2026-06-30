@@ -9,6 +9,20 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ===== 0. Initialize i18n (before any UI rendering) =====
+    if (window.I18n) {
+        window.I18n.init();
+        // Re-apply i18n on dynamic content changes
+        document.addEventListener('i18n:changed', () => {
+            // Re-trigger agent status update so dynamic labels refresh
+            const statusEl = document.querySelector('.agent-status-text');
+            if (statusEl && window.I18n) {
+                const state = statusEl.dataset.state || 'idle';
+                statusEl.textContent = window.I18n.t('agent.status_' + state);
+            }
+        });
+    }
+
     // ===== 1. Original UI Interactions (unchanged) =====
 
     // Navbar Scroll

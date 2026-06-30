@@ -173,19 +173,23 @@ var AgentApp = (() => {
         const indicator = document.querySelector('.agent-status-dot');
         if (!indicator) return;
 
+        const i18n = window.I18n;
         const states = {
-            'idle': { color: '#606080', label: '待命' },
-            'thinking': { color: '#f59e0b', label: '思考中' },
-            'acting': { color: '#6366f1', label: '执行中' },
-            'awaiting_input': { color: '#22c55e', label: '等待输入' },
-            'done': { color: '#14b8a6', label: '完成' }
+            'idle': { color: '#606080', label: i18n ? i18n.t('agent.status_idle') : '待命' },
+            'thinking': { color: '#f59e0b', label: i18n ? i18n.t('agent.status_thinking') : '思考中' },
+            'acting': { color: '#6366f1', label: i18n ? i18n.t('agent.status_acting') : '执行中' },
+            'awaiting_input': { color: '#22c55e', label: i18n ? i18n.t('agent.status_waiting') : '等待输入' },
+            'done': { color: '#14b8a6', label: i18n ? i18n.t('agent.status_done') : '完成' }
         };
 
         const s = states[state] || states.idle;
         indicator.style.backgroundColor = s.color;
         indicator.style.boxShadow = `0 0 8px ${s.color}`;
 
-        if (els.agentStatus) els.agentStatus.textContent = s.label;
+        if (els.agentStatus) {
+            els.agentStatus.textContent = s.label;
+            els.agentStatus.dataset.state = state;
+        }
     }
 
     // ===== Send User Message =====
